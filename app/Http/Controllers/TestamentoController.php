@@ -53,7 +53,7 @@ class TestamentoController extends Controller
     {
         $testamento = Testamento::find($id);
         $testamento->fill($request->all());
-        if($testamento->save()) 
+        if(!$testamento->save()) 
             App::abort(500, 'Erro ao salvar');
     }
 

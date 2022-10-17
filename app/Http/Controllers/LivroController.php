@@ -54,7 +54,7 @@ class LivroController extends Controller
     {
         $livro = Livro::find($id);
         $livro->fill($request->all());
-        if($livro->save()) 
+        if(!$livro->save()) 
             App::abort(500, 'Erro ao salvar');
     }
 
