@@ -3,6 +3,7 @@
 use App\Http\Controllers\TestamentoController;
 use App\Http\Controllers\LivroController;
 use App\Http\Controllers\VersiculoController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,8 @@ use Illuminate\Support\Facades\Route;
 // Route::apiResource('testamento', TestamentoController::class);
 // Route::apiResource('livro', LivroController::class);
 // Route::apiResource('versiculo', VersiculoController::class);
+
+Route::post('/register', [AuthController::class, 'register']);
 
 Route::apiResources([
     'testamento' => TestamentoController::class,
