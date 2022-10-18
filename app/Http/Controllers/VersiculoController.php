@@ -26,8 +26,15 @@ class VersiculoController extends Controller
      */
     public function store(Request $request)
     {
-        $versiculo_obj = Versiculo::create($request->all());
-        $versiculo_obj->save();
+        if(Versiculo::create($request->all())) {
+            return response()->json([
+                'message' => 'Versículo cadastrado com sucesso'
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'Versículo cadastrado com erro'
+            ], 404);
+        }
     }
 
     /**
@@ -52,8 +59,17 @@ class VersiculoController extends Controller
     {
         $versiculo_obj = Versiculo::find($versiculo);
         $versiculo_obj->fill($request->all());
-        if(!$versiculo_obj->save()) 
-            App::abort(500, 'Erro ao salvar');
+
+        if($versiculo_obj->save()){
+            return response()->json([
+                'message' => 'Versículo cadastrado com sucesso'
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'Erro ao fazer update'
+            ], 404);
+        }
+
     }
 
     /**
@@ -64,6 +80,14 @@ class VersiculoController extends Controller
      */
     public function destroy($versiculo)
     {
-        Versiculo::destroy($versiculo);
+        if(Versiculo::destroy($versiculo)) {
+            return response()->json([
+                'message' => 'Versículo apagado com sucesso'
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'Erro ao apagar'
+            ], 404);
+        }
     }
 }

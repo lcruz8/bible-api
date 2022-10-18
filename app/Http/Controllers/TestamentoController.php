@@ -26,9 +26,15 @@ class TestamentoController extends Controller
      */
     public function store(Request $request)
     {
-        $testamento_obj = new Testamento();
-        $testamento_obj->fill($request->all());
-        $testamento_obj->save();
+        if(Testamento::create($request->all())) {
+            return response()->json([
+                'message' => 'Testamento cadastrado com sucesso'
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'Testamento cadastrado com erro'
+            ], 404);
+        }
     }
 
     /**
@@ -53,8 +59,16 @@ class TestamentoController extends Controller
     {
         $testamento_obj = Testamento::find($testamento);
         $testamento_obj->fill($request->all());
-        if(!$testamento_obj->save()) 
-            App::abort(500, 'Erro ao salvar');
+     
+        if($testamento_obj->save()) {
+            return response()->json([
+                'message' => 'Testamento atualizado com sucesso'
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'Erro ao atualizar testamento'
+            ], 404);
+        }
     }
 
     /**
@@ -65,6 +79,14 @@ class TestamentoController extends Controller
      */
     public function destroy($testamento)
     {
-        Testamento::destroy($testamento);
+        if(Testamento::destroy($testamento)) {
+            return response()->json([
+                'message' => 'Testamento apagado com sucesso'
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'Erro ao apagar'
+            ], 404);
+        }
     }
 }
