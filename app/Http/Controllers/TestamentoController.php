@@ -26,45 +26,45 @@ class TestamentoController extends Controller
      */
     public function store(Request $request)
     {
-        $testamento = new Testamento();
-        $testamento->fill($request->all());
-        $testamento->save();
+        $testamento_obj = new Testamento();
+        $testamento_obj->fill($request->all());
+        $testamento_obj->save();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $testamento
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($testamento)
     {
-        return Testamento::find($id);
+        return Testamento::find($testamento);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $testamento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $testamento)
     {
-        $testamento = Testamento::find($id);
-        $testamento->fill($request->all());
-        if(!$testamento->save()) 
+        $testamento_obj = Testamento::find($testamento);
+        $testamento_obj->fill($request->all());
+        if(!$testamento_obj->save()) 
             App::abort(500, 'Erro ao salvar');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $testamento
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($testamento)
     {
-        Testamento::destroy($id);
+        Testamento::destroy($testamento);
     }
 }

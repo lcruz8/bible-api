@@ -26,44 +26,44 @@ class VersiculoController extends Controller
      */
     public function store(Request $request)
     {
-        $versiculo = Versiculo::create($request->all());
-        $versiculo->save();
+        $versiculo_obj = Versiculo::create($request->all());
+        $versiculo_obj->save();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $versiculo
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($versiculo)
     {
-        return Versiculo::find($id);
+        return Versiculo::find($versiculo);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $versiculo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $versiculo)
     {
-        $versiculo = Versiculo::find($id);
-        $versiculo->fill($request->all());
-        if(!$versiculo->save()) 
+        $versiculo_obj = Versiculo::find($versiculo);
+        $versiculo_obj->fill($request->all());
+        if(!$versiculo_obj->save()) 
             App::abort(500, 'Erro ao salvar');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $versiculo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($versiculo)
     {
-        Versiculo::destroy($id);
+        Versiculo::destroy($versiculo);
     }
 }

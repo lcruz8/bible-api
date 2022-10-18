@@ -26,20 +26,20 @@ class LivroController extends Controller
      */
     public function store(Request $request)
     {
-        $livro = new Livro();
-        $livro->fill($request->all());
-        $livro->save();
+        $livro_obj = new Livro();
+        $livro_obj->fill($request->all());
+        $livro_obj->save();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $livro
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($livro)
     {
-        return Livro::find($id);
+        return Livro::find($livro);
 
     }
 
@@ -47,25 +47,25 @@ class LivroController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $livro
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $livro)
     {
-        $livro = Livro::find($id);
-        $livro->fill($request->all());
-        if(!$livro->save()) 
+        $livro_obj = Livro::find($livro);
+        $livro_obj->fill($request->all());
+        if(!$livro_obj->save()) 
             App::abort(500, 'Erro ao salvar');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $livro
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($livro)
     {
-        Livro::destroy($id);
+        Livro::destroy($livro);
     }
 }
