@@ -40,14 +40,17 @@ use Illuminate\Support\Facades\Route;
 // Route::apiResource('livro', LivroController::class);
 // Route::apiResource('versiculo', VersiculoController::class);
 
-Route::post('/register', [AuthController::class, 'register']);
 
-Route::apiResources([
-    'testamento' => TestamentoController::class,
-    'livro' => LivroController::class,
-    'versiculo' => VersiculoController::class
-]);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//PROTEGE AS ROTAS POR AUTENTICAÇÃO E REGISTRO
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::apiResources([
+        'testamento' => TestamentoController::class,
+        'livro' => LivroController::class,
+        'versiculo' => VersiculoController::class
+    ]);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
+
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
