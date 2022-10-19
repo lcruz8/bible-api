@@ -45,7 +45,16 @@ class TestamentoController extends Controller
      */
     public function show($testamento)
     {
-        return Testamento::find($testamento);
+        if($testamento = Testamento::find($testamento)->first()) {
+            return response([
+                "testamento" => $testamento,
+                "livros" => $testamento->livros,
+            ], 201);
+        } else {
+            return response([
+                "message" => "Erro ao encontrar testamento"
+            ], 404);
+        }
     }
 
     /**

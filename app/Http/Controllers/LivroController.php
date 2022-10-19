@@ -45,8 +45,16 @@ class LivroController extends Controller
      */
     public function show($livro)
     {
-        return Livro::find($livro);
-
+        if($livro = Livro::find($livro)->first()) {
+            return response([
+                "livro" => $livro,
+                "versiculos" => $livro->versiculos,
+            ], 201);
+        } else {
+            return response([
+                "message" => "Erro ao encontrar testamento"
+            ], 404);
+        }
     }
 
     /**
