@@ -8,7 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Testamento extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'nome',
     ];
+
+
+    /**
+    * Listar livros vinculados
+    */
+
+    public function livros() {
+        return $this->hasMany(Livro::class);
+    }
 }

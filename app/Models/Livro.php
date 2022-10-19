@@ -14,4 +14,9 @@ class Livro extends Model
         'abreviacao',
         'testamento_id',
     ];
+
+
+    public function versiculos() {
+        return $this->hasMany(Versiculo::class);
+    }
 }
