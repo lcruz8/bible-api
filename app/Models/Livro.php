@@ -13,10 +13,14 @@ class Livro extends Model
         'nome',
         'abreviacao',
         'testamento_id',
+        'versao_id',
+        'capa',
     ];
 
+    protected $primaryKey = 'id';
 
     public function versiculos() {
         return $this->hasMany(Versiculo::class);
     }
+
 }

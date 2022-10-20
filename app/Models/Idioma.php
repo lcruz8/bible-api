@@ -10,9 +10,10 @@ class Idioma extends Model
     use HasFactory;
     
     protected $fillable = ['nome'];
+    protected $primaryKey = 'id';
 
     
-    public function traducoes() {
-        return $this->hasMany(Traducao::class);
+    public function versoes() {
+        return $this->hasMany(Versao::class);
     }
 }

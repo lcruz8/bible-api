@@ -17,6 +17,7 @@ class Testamento extends Model
     /**
     * Listar livros vinculados
     */
+    protected $primaryKey = 'id';
 
     public function livros() {
         return $this->hasMany(Livro::class);
