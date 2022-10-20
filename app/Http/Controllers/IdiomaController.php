@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\IdiomaResource;
 use Illuminate\Http\Request;
 use App\Models\Idioma;
 
@@ -44,11 +45,8 @@ class IdiomaController extends Controller
      */
     public function show($idioma)
     {
-        if($idioma = Idioma::find($idioma)->first()) {
-            return response([
-                "idioma" => $idioma,
-                "versiculos" => $idioma->versiculos,
-            ], 201);
+        if($idioma = Idioma::find($idioma)) {
+            return new IdiomaResource($idioma);
         } else {
             return response([
                 "message" => "Erro ao encontrar idioma"

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Traducao;
+use App\Models\Versao;
 use Illuminate\Http\Request;
+use App\Http\Resources\VersaoCollection;
+use App\Http\Resources\VersaoResource;
 
-class TraducaoController extends Controller
+class VersaoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class TraducaoController extends Controller
      */
     public function index()
     {
-        return Traducao::all();
+        return new VersaoCollection(Versao::select('id', 'nome', 'abreviacao')->paginate(5));
     }
 
     /**
@@ -25,13 +27,13 @@ class TraducaoController extends Controller
      */
     public function store(Request $request)
     {
-        if(Traducao::create($request->all())) {
+        if(Versao::create($request->all())) {
             return response()->json([
-                'message' => 'Traducao cadastrado com sucesso'
+                'message' => 'Versao cadastrado com sucesso'
             ], 201);
         } else {
             return response()->json([
-                'message' => 'Erro ao cadastrar traducao'
+                'message' => 'Erro ao cadastrar versao'
             ], 404);
         }
     }
@@ -39,19 +41,16 @@ class TraducaoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $traducao
+     * @param  int  $versao
      * @return \Illuminate\Http\Response
      */
-    public function show($traducao)
+    public function show($versao)
     {
-        if($traducao = Traducao::find($traducao)->first()) {
-            return response([
-                "traducao" => $traducao,
-                "versiculos" => $traducao->versiculos,
-            ], 201);
+        if($versao = Versao::with('idiomas', 'livros')->find($versao)) {
+            return new VersaoResource($versao);
         } else {
             return response([
-                "message" => "Erro ao encontrar traducao"
+                "message" => "Erro ao encontrar versao"
             ], 404);
         }
     }
@@ -60,21 +59,21 @@ class TraducaoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $traducao
+     * @param  int  $Versao
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $traducao)
+    public function update(Request $request, $versao)
     {
-        $traducao_obj = Traducao::find($traducao);
-        $traducao_obj->fill($request->all());
+        $versao_obj = Versao::find($versao);
+        $versao_obj->fill($request->all());
 
-        if($traducao_obj->save()) {
+        if($versao_obj->save()) {
             return response()->json([
-                'message' => 'Traducao atualizado com sucesso'
+                'message' => 'Versao atualizado com sucesso'
             ], 201);
         } else {
             return response()->json([
-                'message' => 'Erro ao atualizar traducao'
+                'message' => 'Erro ao atualizar versao'
             ], 404);
         }
     }
@@ -82,14 +81,14 @@ class TraducaoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $traducao
+     * @param  int  $Versao
      * @return \Illuminate\Http\Response
      */
-    public function destroy($traducao)
+    public function destroy($versao)
     {
-        if(Traducao::destroy($traducao)) {
+        if(Versao::destroy($versao)) {
             return response()->json([
-                'message' => 'Traducao apagado com sucesso'
+                'message' => 'Versao apagado com sucesso'
             ], 201);
         } else {
             return response()->json([

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Livro;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\App;
 
 class LivroController extends Controller
@@ -26,7 +27,12 @@ class LivroController extends Controller
      */
     public function store(Request $request)
     {
-        if(Livro::create($request->all())) {
+        $path = !empty($request->capa) ? $request->capa->store('capa_livro', 'public') : null;
+        
+        $livro = (new Livro())->fill($request->all());
+        $livro->capa = $path;
+        
+        if($livro->save()) {
             return response()->json([
                 'message' => 'Livro cadastrado com sucesso'
             ], 201);
@@ -45,9 +51,11 @@ class LivroController extends Controller
      */
     public function show($livro)
     {
-        if($livro = Livro::find($livro)->first()) {
+        $livro = Livro::find($livro);
+        if(!empty($livro)) {
             return response([
                 "livro" => $livro,
+                "capa" => Storage::disk('public')->url($livro->capa),
                 "versiculos" => $livro->versiculos,
             ], 201);
         } else {
