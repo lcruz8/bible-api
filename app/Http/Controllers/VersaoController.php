@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Versao;
 use Illuminate\Http\Request;
-use App\Http\Resources\VersaoCollection;
+use App\Http\Resources\VersoesCollection;
 use App\Http\Resources\VersaoResource;
 
 class VersaoController extends Controller
@@ -16,7 +16,7 @@ class VersaoController extends Controller
      */
     public function index()
     {
-        return new VersaoCollection(Versao::select('id', 'nome', 'abreviacao')->paginate(5));
+        return new VersoesCollection(Versao::select('id', 'nome', 'abreviacao')->paginate(5));
     }
 
     /**

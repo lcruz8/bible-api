@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\LivroResource;
 use Illuminate\Http\Request;
 use App\Models\Livro;
+use App\Http\Resources\LivrosCollection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\App;
 
@@ -16,7 +18,7 @@ class LivroController extends Controller
      */
     public function index()
     {
-        return Livro::all();
+        return new LivrosCollection(Livro::all());
     }
 
     /**
@@ -53,11 +55,7 @@ class LivroController extends Controller
     {
         $livro = Livro::find($livro);
         if(!empty($livro)) {
-            return response([
-                "livro" => $livro,
-                "capa" => Storage::disk('public')->url($livro->capa),
-                "versiculos" => $livro->versiculos,
-            ], 201);
+            return new LivroResource($livro);
         } else {
             return response([
                 "message" => "Erro ao encontrar testamento"

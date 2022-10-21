@@ -19,7 +19,7 @@ class VersaoResource extends JsonResource
             'nome' => $this->nome,
             'abreviacao' => $this->abreviacao,
             'idiomas' => new IdiomaResource($this->whenLoaded('idiomas')),
-            'livros' => $this->livros,
+            'livros' => new LivrosCollection($this->whenLoaded('livros')),
         ];
     }
 }
