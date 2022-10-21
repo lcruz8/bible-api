@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\VersiculoResource;
+use App\Http\Resources\VersiculosCollection;
 use Illuminate\Http\Request;
 use App\Models\Versiculo;
 use Illuminate\Support\Facades\App;
@@ -15,7 +17,7 @@ class VersiculoController extends Controller
      */
     public function index()
     {
-        return Versiculo::all();
+        return new VersiculosCollection(Versiculo::all());
     }
 
     /**
@@ -45,7 +47,9 @@ class VersiculoController extends Controller
      */
     public function show($versiculo)
     {
-        return Versiculo::find($versiculo);
+        $versiculo = Versiculo::with('livros')->find($versiculo);
+        // dd()
+        return new VersiculoResource($versiculo);
     }
 
     /**

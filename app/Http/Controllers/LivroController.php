@@ -53,7 +53,8 @@ class LivroController extends Controller
      */
     public function show($livro)
     {
-        $livro = Livro::find($livro);
+
+        $livro = Livro::with('versoes', 'testamentos', 'versiculos')->find($livro);
         if(!empty($livro)) {
             return new LivroResource($livro);
         } else {
