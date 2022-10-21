@@ -15,4 +15,9 @@ class Versiculo extends Model
         'texto',
         'livro_id',
     ];
+
+    
+    public function livros() {
+        return $this->belongsTo(Livro::class, 'livro_id');
+    }
 }
