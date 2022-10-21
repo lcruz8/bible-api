@@ -19,10 +19,9 @@ class LivroResource extends JsonResource
             'id' => $this->id, 
             'nome' => $this->nome, 
             'abreviacao' => $this->abreviacao, 
-            'testamento_id' => $this->testamento_id, 
-            'created_at' => $this->created_at, 
-            'updated_at' => $this->updated_at, 
-            'versao_id' => $this->versao_id, 
+            'testamento' => $this->whenLoaded('testamentos'), 
+            'versiculos' => $this->whenLoaded('versiculos'), 
+            'versoes' => new VersaoResource($this->whenLoaded('versoes')), 
             'capa' => Storage::disk('public')->url($this->capa)
         ];
     }

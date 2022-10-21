@@ -14,6 +14,7 @@ class VersaoResource extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             'id' => $this->id,
             'nome' => $this->nome,
