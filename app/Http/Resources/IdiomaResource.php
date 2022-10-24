@@ -28,6 +28,18 @@ class IdiomaResource extends JsonResource
         return [
             'id' => $this->id,
             'nome' => $this->nome,
+            "links" => [
+                [
+                    'rel' => 'Alterar idioma',
+                    'type' => 'PUT',
+                    'link' => route('idioma.update', $this->id),
+                ],
+                [
+                    'rel' => 'Excluir idioma',
+                    'type' => 'DELETE',
+                    'link' => route('idioma.destroy', $this->id),
+                ],
+            ]
         ];
         // return parent::toArray($request);
     }

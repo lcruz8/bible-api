@@ -22,7 +22,19 @@ class LivroResource extends JsonResource
             'testamento' => $this->whenLoaded('testamentos'), 
             'versiculos' => $this->whenLoaded('versiculos'), 
             'versoes' => new VersaoResource($this->whenLoaded('versoes')), 
-            'capa' => ($this->capa) ? Storage::disk('public')->url($this->capa) : ""
+            'capa' => ($this->capa) ? Storage::disk('public')->url($this->capa) : "",
+            "links" => [
+                [
+                    'rel' => 'Alterar livro',
+                    'type' => 'PUT',
+                    'link' => route('livro.update', $this->id),
+                ],
+                [
+                    'rel' => 'Excluir livro',
+                    'type' => 'DELETE',
+                    'link' => route('livro.destroy', $this->id),
+                ],
+            ]
         ];
     }
 }

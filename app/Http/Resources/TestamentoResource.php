@@ -18,6 +18,19 @@ class TestamentoResource extends JsonResource
             "id" => $this->id,
             "nome" => $this->nome,
             "livros" => $this->livros,
+            "links" => [
+                [
+                    'rel' => 'Alterar testamento',
+                    'type' => 'PUT',
+                    'link' => route('testamento.update', $this->id),
+                ],
+                [
+                    'rel' => 'Excluir testamento',
+                    'type' => 'DELETE',
+                    'link' => route('testamento.destroy', $this->id),
+                ],
+            ]
+
         ];
     }
 }
