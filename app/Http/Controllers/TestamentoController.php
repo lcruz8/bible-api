@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TestamentoResource;
+use App\Http\Resources\TestamentosCollection;
 use Illuminate\Http\Request;
 use App\Models\Testamento;
 use Illuminate\Support\Facades\App;
@@ -15,7 +17,7 @@ class TestamentoController extends Controller
      */
     public function index()
     {
-        return Testamento::all();
+        return new TestamentosCollection(Testamento::all());
     }
 
     /**
@@ -46,10 +48,7 @@ class TestamentoController extends Controller
     public function show($testamento)
     {
         if($testamento = Testamento::find($testamento)->first()) {
-            return response([
-                "testamento" => $testamento,
-                "livros" => $testamento->livros,
-            ], 201);
+            return new TestamentoResource($testamento);
         } else {
             return response([
                 "message" => "Erro ao encontrar testamento"

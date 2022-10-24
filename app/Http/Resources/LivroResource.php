@@ -22,7 +22,7 @@ class LivroResource extends JsonResource
             'testamento' => $this->whenLoaded('testamentos'), 
             'versiculos' => $this->whenLoaded('versiculos'), 
             'versoes' => new VersaoResource($this->whenLoaded('versoes')), 
-            'capa' => Storage::disk('public')->url($this->capa)
+            'capa' => ($this->capa) ? Storage::disk('public')->url($this->capa) : ""
         ];
     }
 }
